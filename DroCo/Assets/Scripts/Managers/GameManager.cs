@@ -15,11 +15,24 @@ using Esri.GameEngine.Map;
 using Esri.GameEngine.Layers.Base;
 using Esri.GameEngine.Elevation.Base;
 
+
+// GameManager.cs
+// Edited by Jakub Valeš
+// Date: 14.5.2025
+// Changes:
+    // Added attributes: iconsUI, RadarUI, DroneDropdownUI
+    // Changes in attributes:
+        // Appmode: added Pilot mode,
+    // Added methods: StartPilotMode, ShowButtonsServer, ShowButtonsPilot
+    // Changes in methods:
+        // Start: added call to not fall asleep
+
 public class GameManager : Singleton<GameManager> {
 
     public enum AppMode {
         Client,
-        Server
+        Server,
+        Pilot // Server (drone connects), Client (connects to the commander)
     }
 
     public enum DisplayState {
@@ -72,8 +85,15 @@ public class GameManager : Singleton<GameManager> {
         get; private set;
     }
 
+    [SerializeField]
+    private GameObject iconsUI;
+    [SerializeField]
+    private GameObject RadarUI;
+    [SerializeField]
+    private GameObject DroneDropdownUI;
 
     private void Start() {
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;  // Prevent screen from sleeping on tablet
         ChangeAppMode(defaultAppMode);
 
         sceneViewCameraController = MainCamera.GetComponent<ArcGISCameraControllerTouch>();
@@ -89,6 +109,11 @@ public class GameManager : Singleton<GameManager> {
                 CloseServerMode();
                 StartClientMode();
                 break;
+            case AppMode.Pilot:
+                CloseServerMode();
+                CloseClientMode();
+                StartPilotMode();
+                break;
             case AppMode.Server:
                 CloseClientMode();
                 StartServerMode();
@@ -99,6 +124,8 @@ public class GameManager : Singleton<GameManager> {
     private void StartClientMode() {
         connectionBar.gameObject.SetActive(true);
         serverStatusBar.gameObject.SetActive(false);
+        showButtonsPilot(false);
+        showButtonsServer(false);
 
         LoadLastServerIP();
     }
@@ -114,7 +141,21 @@ public class GameManager : Singleton<GameManager> {
         serverStatusBar.gameObject.SetActive(true);
         connectionBar.gameObject.SetActive(false);
 
+        showButtonsServer(true);
+        showButtonsPilot(false);
+
         WebSocketServer.Instance.StartServer();
+    }
+
+    private void StartPilotMode() {
+        connectionBar.gameObject.SetActive(true);
+        serverStatusBar.gameObject.SetActive(true);
+
+        showButtonsServer(false);
+        showButtonsPilot(true);
+
+        WebSocketServer.Instance.StartServer();
+        LoadLastServerIP();
     }
 
     private void CloseServerMode() {
@@ -197,7 +238,7 @@ public class GameManager : Singleton<GameManager> {
     }
 
     public void HandleHandshakeDone() {
-        WebSocketClient.Instance.SendDroneListRequest();
+        //WebSocketClient.Instance.SendDroneListRequest();
         connectionBar.SetConnectionStatus(ConnectionStatus.Connected);
     }
 
@@ -303,5 +344,20 @@ public class GameManager : Singleton<GameManager> {
         return null;
     }
 
-}
+    // Showing server UI buttons
+    private void showButtonsServer(bool show) {
+        foreach (Transform child in iconsUI.transform) {
+            child.gameObject.SetActive(show);
+        }
+        DroneDropdownUI.SetActive(show);
+        iconsUI.transform.Find("ButtonUIUp").gameObject.SetActive(false);
+        iconsUI.transform.Find("ButtonUIDown").gameObject.SetActive(false);
+        iconsUI.transform.Find("ButtonUIRight").gameObject.SetActive(false);
+        iconsUI.transform.Find("ButtonUILeft").gameObject.SetActive(false);
+    }
 
+    // Showing pilot UI buttons
+    private void showButtonsPilot(bool show) {
+        RadarUI.SetActive(show);
+    }
+}

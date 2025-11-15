@@ -1,0 +1,7 @@
+# Ignore everything
+*
+# Allow .gitignore itself
+!/.gitignore
+# Allow the Scripts directory and its contents
+!/Scripts/
+!/Scripts/**

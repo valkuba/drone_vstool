@@ -1,28 +1,74 @@
-# DroCo – V2
-Branch DroCoV2 presents a completely new and clean version 2.0 of the original DroCo, currently still in development. Tested on Unity version 2022.3.23.
+# DroCo - Pilot-Commander Communication Extension (Bachelor Thesis - Visualization Tool for a Drone Pilot)
+This branch of DroCo project presents an extension that was developed as a part of bachelor thesis. The extension enables real-time communication, shared annotations, and area exploration tracking between mission commanders and drone pilots through multiple instances of DroCo. Tested on Unity version 2022.3.23f1.
+
+Link to the thesis: [bachelor thesis](http://hdl.handle.net/11012/254537)
 
 ## What's new
- - Possibility to switch to AR.
- - Synchronized video stream with flight data.
- - New map base layer – [ArcGIS](https://developers.arcgis.com/unity/).
- - New GUI design.
+- 2 new modes of app: Commander and Pilot mode
 
+### Commander Mode
+- View positions and video screens of all pilots in real-time
+- Create annotations in form of marks on the map which are visible for pilots (all or selected ones)
+- Highlight specific annotations to set the current task for pilots
+- Create an area to explore for the pilot which is filled as the pilot explores given area
+- Both annotations and area to explore are visible in AR mode
+- Send instructions to the pilots
+- Switch between AR views of different pilots
+
+<img src="images/Icons_Commander_View.png"/>
+<img src="Area_search_commander_green.png">
+
+### Pilot Mode
+- Use AR mode (recommended)
+- View commander annotations in AR
+- Current task indicator - arrow guides pilot to highlighted annotation when outside field of view
+- Area exploration tracking
+- Proximity visualization - octagon display shows nearby objects
+- Upper and lower proximity indicators in the bottom-left corner of the screen
+- See other pilots' positions marked with red squares
+
+<img src="Icons_Pilot_View.jpg"/>
+
+## Example of Running the System
+### Requirements
+- One Android device for the **DroneDJIStreamer** application - [drone_dji_streamer](https://github.com/robofit/drone_dji_streamer)
+- **For Pilot:** Android tablet (recommended)
+- **For Commander:** PC (Windows) or Android tablet
+
+### Procedure
+- Connect the mobile device to the drone controller via USB cable and launch **DroneDJIStreamer**.  
+- On the second pilot's device (tablet), run **DroCo** and select **Pilot** from the dropdown menu in the top-right corner.  
+- In the second row with the IP address, you will see **Listening** — copy this IP address and port.  
+- In DroneDJIStreamer, click **Server**, paste the address, and press **Connect**.  
+  The drone’s video feed should now appear (or press **Live** if needed).  
+- For the commander application, launch a second instance of **DroCo** (PC or Android) and select **Server**.  
+- Copy the IP address from the commander instance and paste it into the first DroCo instance in the row labeled **Disconnected**.  
+- Both applications will now connect. In both instances (Pilot and Commander), the status will show **Connected** and you will see the drone model along with the camera feed.
+
+## Development Requirements
+- **Unity** version: 2022.3.23f1  
+- **ArcGIS** developer account (required for obtaining an API key)
+
+### Project Dependencies and Setup
+#### Unity Package Manager
+The project uses packages listed in the `dependencies` section of  
+`Packages/manifest.json`, for example:
+
+- `com.unity.render-pipelines.universal`
+- `com.esri.arcgis.maps-sdk`
+- ...
+#### External SDKs
+- **ArcGIS Maps SDK**
+- **DJI SDK**
+- 
 ## DroCo – Multi-Drone Control Vizualization Tool
-[DroCo (VSTool)](https://www.fit.vut.cz/research/product/647/.en) is a tool for effective drone remote control using mixed reality, that also supports communication and cooperation on a mission with multiple drones. The proposed solution is developed by [Robo@FIT, Brno University of Technology](https://www.fit.vut.cz/research/group/robo/.en) research group, and is inspired by the high mental load of the pilot in the control of the drone, especially in the performance of more complex missions (multiple drones, remote target, proximity to infrastructure etc.). The system is based on the extension of the 3D virtual model with real data (augmented virtuality). It uses temporal and spatial registration of:
- 1) off-line data (map data, elevation data, 3D building models)
- 2) on-line data (video-stream, reconstructed 3D structures, location information, flight data)
- 3) virtual control objects (navigation points and directions, spatial areas and geo-fences, position of other drones, distance to nearby objects, preview map, or view from other drones). 
- 
-The system thus allows you to pilot the drone in FPV (first-person-view), but at any time it can switch to TPV (third --person-view), so that one can look around freely in a situation with poor orientation, further directs the pilot to other mission objectives, points out close objects or other drones, etc. The system is currently being expanded with the functions of multiple drones, sharing more sensory information across the system, increasing the security of network communication. The development also aims to use a system for drone control training for pilots, increase the realism of drone behavior in simulated mode, more efficient mission management and visualization of the status for the operator of the whole event.
-
-<img src=drocoV2.png />
-<img src=drocoV2_overview.png />
+[DroCo (VSTool)](https://www.fit.vut.cz/research/product/647/.en) is a tool for effective drone remote control using mixed reality, that also supports communication and cooperation on a mission with multiple drones. The proposed solution is developed by [Robo@FIT, Brno University of Technology](https://www.fit.vut.cz/research/group/robo/.en) research group, and is inspired by the high mental load of the pilot in the control of the drone, especially in the performance of more complex missions (multiple drones, remote target, proximity to infrastructure etc.). The system is based on the extension of the 3D virtual model with real data (augmented virtuality).
 
 ## Installation
  - Install [UnxUtils](https://sourceforge.net/projects/unxutils/) to be able to patch ArcGIS scripts using patch_arcgis.bat script.
  - Clone this repo:
    ```bash
-   git clone git@github.com:robofit/drone_vstool.git
+   git clone git@github.com:valkuba/drone_vstool.git
    ```
  - Get submodules:
    ```bash

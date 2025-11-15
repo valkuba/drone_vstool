@@ -62,6 +62,7 @@ public class Drone : InteractiveObject, IPointerNotifier {
     }
 
     public void InitDrone(DroneStaticData staticData) {
+        StaticData = staticData;                                // needed for the DroneName, Serial when sending to Commander
         GPSLocation = GetComponent<ArcGISLocationComponent>();
         GPSLocation.enabled = true;
 

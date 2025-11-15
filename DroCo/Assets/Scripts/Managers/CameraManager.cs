@@ -5,6 +5,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+// CameraManager.cs
+// Edited by Jakub Valeš
+// Date: 14.5.2025
+// Changes:
+    // Added methods: SetCameraViewCommander, SwitchCameraViewCommander
 public class CameraManager : Singleton<CameraManager> {
     public enum CameraView {
         FirstPerson,
@@ -16,7 +21,7 @@ public class CameraManager : Singleton<CameraManager> {
     private bool UseARCameraSwitch = false;
 
     [SerializeField]
-    private Camera MainCamera;
+    public Camera MainCamera;
 
     private ArcGISCameraControllerTouch cameraControllerTouch;
     private CameraFollowSimple cameraFollow;
@@ -70,7 +75,7 @@ public class CameraManager : Singleton<CameraManager> {
     }
 
     private void DisplayVRScene(bool active = true) {
-        if (active) {
+        if (active) {//see buildings
             foreach (GameObject building in FindGameObjectsInLayer(10)) {
                 building.GetComponent<MeshRenderer>().material.shader = buildingShaderLit;
             }
@@ -134,6 +139,29 @@ public class CameraManager : Singleton<CameraManager> {
             IEnumerator enumerator = DroneManager.Instance.Drones.Values.GetEnumerator();
             enumerator.MoveNext();
             droneFPV = (InteractiveObject) enumerator.Current;
+        }
+        if (droneFPV != null) {
+            switch (view) {
+                case CameraView.FirstPerson:
+                    UnsetFreeLook();
+                    SetFPV(droneFPV);
+                    break;
+                case CameraView.FreeLook:
+                    UnsetFPV(droneFPV);
+                    SetFreeLook();
+                    break;
+            }
+        }
+    }
+
+    // On click change the commander view to FPV or back to the FreeLook view
+    public void SetCameraViewCommander(CameraView view, string DroneKey) {
+        droneFPV = null;
+        if (droneFPV == null && DroneManager.Instance.Drones.Count >= 1) {
+            if (DroneManager.Instance.Drones.TryGetValue(DroneKey, out Drone drone)) {
+                droneFPV = drone as InteractiveObject;
+                droneFPV = drone;
+            }
         }
         if (droneFPV != null) {
             switch (view) {
@@ -216,6 +244,10 @@ public class CameraManager : Singleton<CameraManager> {
 
     public void SwitchCameraView() {
         SetCameraView(currentCameraView == CameraView.FreeLook ? CameraView.FirstPerson : CameraView.FreeLook);
+    }
+
+    public void SwitchCameraViewCommander(string DroneKey) {
+        SetCameraViewCommander(currentCameraView == CameraView.FreeLook ? CameraView.FirstPerson : CameraView.FreeLook, DroneKey);
     }
 
 }

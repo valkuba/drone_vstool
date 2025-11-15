@@ -455,7 +455,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1025
+    m_Bits: 1
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 484eb0cb098f19a44bbfba1961fc0ad8, type: 2}
   m_TargetDisplay: 0
@@ -522,7 +522,6 @@ GameObject:
   - component: {fileID: 5880036703535103203}
   - component: {fileID: 5949100420063594975}
   - component: {fileID: 8515878924102995969}
-  - component: {fileID: 6905596658977317324}
   - component: {fileID: 868344270410852820}
   m_Layer: 9
   m_Name: FPVOnlyCamera
@@ -644,71 +643,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!114 &6905596658977317324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4314929960194815631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c0ad0e8e55c95c4e931911c4b943a64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  space: 0
-  transformType: 0
-  pivot: 0
-  centerType: 0
-  scaleType: 0
-  SetMoveType: 119
-  SetRotateType: 101
-  SetScaleType: 114
-  SetAllTransformType: 121
-  SetSpaceToggle: 120
-  SetPivotModeToggle: 122
-  SetCenterTypeToggle: 99
-  SetScaleTypeToggle: 115
-  translationSnapping: 306
-  AddSelection: 304
-  RemoveSelection: 306
-  ActionKey: 304
-  UndoAction: 122
-  RedoAction: 121
-  xColor: {r: 1, g: 0, b: 0, a: 0.8}
-  yColor: {r: 0, g: 1, b: 0, a: 0.8}
-  zColor: {r: 0, g: 0, b: 1, a: 0.8}
-  allColor: {r: 0.7, g: 0.7, b: 0.7, a: 0.8}
-  selectedColor: {r: 1, g: 1, b: 0, a: 0.8}
-  hoverColor: {r: 1, g: 0.75, b: 0, a: 0.8}
-  planesOpacity: 0.5
-  movementSnap: 0.25
-  rotationSnap: 15
-  scaleSnap: 1
-  handleLength: 0.25
-  handleWidth: 0.003
-  planeSize: 0.035
-  triangleSize: 0.03
-  boxSize: 0.03
-  circleDetail: 40
-  allMoveHandleLengthMultiplier: 1
-  allRotateHandleLengthMultiplier: 1.4
-  allScaleHandleLengthMultiplier: 1.6
-  minSelectedDistanceCheck: 0.01
-  moveSpeedMultiplier: 1
-  scaleSpeedMultiplier: 1
-  rotateSpeedMultiplier: 1
-  allRotateSpeedMultiplier: 20
-  useFirstSelectedAsMain: 1
-  circularRotationMethod: 0
-  forceUpdatePivotPointOnChange: 1
-  maxUndoStored: 100
-  manuallyHandleGizmo: 0
-  selectionMask:
-    serializedVersion: 2
-    m_Bits: 4294967291
-  lineMaterial: {fileID: 2100000, guid: dd048fee1b4208148adfd5bf1b60a934, type: 2}
-  outlineMaterial: {fileID: 2100000, guid: c6e35440e6d7b8045bbb6c0b11d392e7, type: 2}
 --- !u!114 &868344270410852820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -796,7 +730,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 21504
+    m_Bits: 54272
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1275,7 +1209,7 @@ Camera:
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1399
+    m_Bits: 119
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
