@@ -5,6 +5,7 @@ Link to the thesis: [bachelor thesis](http://hdl.handle.net/11012/254537)
 
 ## What's new
 - 2 new modes of app: Commander and Pilot mode
+- Network communication system enabling real-time data sharing between commander and pilot instances
 
 ### Commander Mode
 - View positions and video screens of all pilots in real-time
@@ -15,7 +16,7 @@ Link to the thesis: [bachelor thesis](http://hdl.handle.net/11012/254537)
 - Send instructions to the pilots
 - Switch between AR views of different pilots
 
-<img src="images/Icons_Commander_View.png"/>
+<img src="Icons_Commander_View.png"/>
 <img src="Area_search_commander_green.png">
 
 ### Pilot Mode
@@ -65,11 +66,22 @@ The project uses packages listed in the `dependencies` section of
 [DroCo (VSTool)](https://www.fit.vut.cz/research/product/647/.en) is a tool for effective drone remote control using mixed reality, that also supports communication and cooperation on a mission with multiple drones. The proposed solution is developed by [Robo@FIT, Brno University of Technology](https://www.fit.vut.cz/research/group/robo/.en) research group, and is inspired by the high mental load of the pilot in the control of the drone, especially in the performance of more complex missions (multiple drones, remote target, proximity to infrastructure etc.). The system is based on the extension of the 3D virtual model with real data (augmented virtuality).
 
 ## Installation
- - Install [UnxUtils](https://sourceforge.net/projects/unxutils/) to be able to patch ArcGIS scripts using patch_arcgis.bat script.
- - Clone this repo:
-   ```bash
-   git clone git@github.com:valkuba/drone_vstool.git
-   ```
+ - Install [UnxUtils](https://sourceforge.net/projects/unxutils/) to be able to patch ArcGIS scripts using patch_arcgis.bat script. 
+
+- This extension is available as the `ar_communication` branch. You can clone either from the original repository or from this fork:
+    **From original repository:**
+    ```bash
+    git clone git@github.com:robofit/drone_vstool.git
+    cd drone_vstool
+    git checkout ar_communication
+    ```
+
+    **Or from this fork (ar_communication is default):**
+    ```bash
+    git clone git@github.com:valkuba/drone_vstool.git
+    cd drone_vstool
+    ```
+
  - Get submodules:
    ```bash
    cd drone_vstool
